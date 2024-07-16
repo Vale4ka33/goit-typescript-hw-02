@@ -1,9 +1,23 @@
 import React from "react";
 import css from "./ImageCard.module.css";
-import { ImageCardProps } from "./ImageCard.types";
+import { IPicture, TImageClickHandler } from "../App/App.types";
 
-const ImageCard: React.FC<ImageCardProps> = ({ src, alt, onClick }) => {
-  return <img src={src} alt={alt} className={css.image} onClick={onClick} />;
+interface ImageCardProps {
+  image: IPicture; 
+  onClick: TImageClickHandler;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ image, onClick }) => {
+  const { urls, altDescription } = image;
+
+  return (
+    <img
+      src={urls.small}
+      alt={altDescription}
+      className={css.image}
+      onClick={() => onClick(image)}
+    />
+  );
 };
 
 export default ImageCard;

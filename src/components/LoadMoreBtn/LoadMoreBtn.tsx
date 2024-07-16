@@ -1,6 +1,10 @@
 import React from "react";
 import css from "./LoadMoreBtn.module.css";
-import { LoadMoreBtnProps } from "./LoadMoreBtn.types";
+import { TLoadMoreHandler } from "../App/App.types";
+
+interface LoadMoreBtnProps {
+  onLoadMore: TLoadMoreHandler;
+}
 
 const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({ onLoadMore }) => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
-import { ImageModalProps } from "./ImageModal.types";
+import { IPicture, TModalCloseHandler } from "../App/App.types";
 
 Modal.setAppElement("#root");
 
@@ -19,6 +19,12 @@ const customStyles = {
   },
 };
 
+interface ImageModalProps {
+  isOpen: boolean;
+  onRequestClose: TModalCloseHandler;
+  image: IPicture | null;
+}
+
 const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onRequestClose, image }) => {
   return (
     <Modal
@@ -29,25 +35,27 @@ const ImageModal: React.FC<ImageModalProps> = ({ isOpen, onRequestClose, image }
       className={css.imageModal}
       contentLabel="Image Modal"
     >
-      <div className={css.imageContainer}>
-        <img
-          src={image?.urls?.full}
-          alt={image?.alt_description}
-          className={css.image}
-        />
-        <div className={css.info}>
-          <p>
-            <strong>Author:</strong> {image?.user?.name}
-          </p>
-          <p>
-            <strong>Likes:</strong> {image?.likes}
-          </p>
-          <p>
-            <strong>Description:</strong>{" "}
-            {image?.alt_description || "No description available."}
-          </p>
+      {image && (
+        <div className={css.imageContainer}>
+          <img
+            src={image.urls.full}
+            alt={image.altDescription}
+            className={css.image}
+          />
+          <div className={css.info}>
+            <p>
+              <strong>Author:</strong> {image.author.fullName}
+            </p>
+            <p>
+              <strong>Likes:</strong> {image.likesCount}
+            </p>
+            <p>
+              <strong>Description:</strong>{" "}
+              {image.altDescription || "No description available."}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </Modal>
   );
 };
